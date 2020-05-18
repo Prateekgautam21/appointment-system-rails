@@ -1,0 +1,88 @@
+ <%= form_with(model: appointment, local: true) do |form| %>
+    <% if appointment.errors.any? %>
+        <% appointment.errors.full_messages.each do |message| %>
+          <div class="alert alert-danger">
+              <%= message %>
+          </div>
+        <% end %>
+    <% end %>
+
+  <div class="container w-50 text-dark rounded px-4 pt-4 pb-2 bg-white">
+
+    <h1>New Appointment</h1>
+    <hr class="border-dark">
+
+    <div class="form-group">
+
+    <div class="field">
+      <strong><%= form.label :Date %></strong><i style="font-size:12px;"> (We are not functional on Sundays and Saturdays)</i>
+      <%= form.text_field(:dateOfservice, id: :appointment_dateOfservice,
+                                              :class=>'form-control mb-1',
+                                              required: true,
+                                              :autocomplete=>'off') %>
+    </div>
+
+    <div class="field">
+      <strong><%= form.label :Time%></strong><i style="font-size:12px;"> (We provide services from 10:00 AM to 8:00 PM)</i>
+      <%= form.text_field(:timeOfservice,  :class=>'form-control mb-2',
+                                            # :min=>"10:00",
+                                            # :max=>"20:00",
+                                            # value: "%H:%M",
+                                            # :step=>'3600',
+                                            required: true,
+                                            id: :appointment_timeOfservice,
+                                            :autocomplete=>'off') %>
+    </div>
+
+      <div class="field">
+        <strong><p>Services-</p></strong>
+
+      <div class="w-100 d-flex justify-content-between mb-1">
+        <%= form.label :hasServiceA, "Pedicure- (Rs-5000.0)"%>
+        <%= form.check_box(:hasServiceA, id: :appointment_hasServiceA, :class=>'mt-2') %>
+      </div>
+      <div class="w-100 d-flex justify-content-between mb-1">
+        <%= form.label :hasServiceB, "Haircut- (Rs-1000.0)"%>
+        <%= form.check_box(:hasServiceB, id: :appointment_hasServiceB, :class=>'mt-2') %>
+      </div>
+      <div class="w-100 d-flex justify-content-between mb-1">
+        <%= form.label :hasServiceC, "Facial- (Rs-2500.0)"%>
+        <%= form.check_box(:hasServiceC, id: :appointment_hasServiceC, :class=>'mt-2') %>
+      </div>
+
+      </div>
+
+    <hr class="w-100 border-dark">
+    <div class="actions">
+      <%= form.submit(:class=>'btn btn-success w-100 mb-2')%>
+    </div>
+
+    <%= link_to 'Cancel', root_path, :class=>"btn btn-info w-100" %>
+
+    </div>
+
+  </div>
+
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+         $(function() {
+             $("#appointment_dateOfservice").datepicker({
+                 dateFormat: 'yy-mm-dd',
+                 minDate: new Date(),
+                 beforeShowDay: function(date) {
+                     var day = date.getDay();
+                     return [(day != 0 && day != 6),  ''];
+                 }
+             });
+             $('#appointment_timeOfservice').timepicker({
+               interval: 60,
+               minTime: '10:00am',
+               maxTime: '7:00pm',
+               dynamic: false,
+             });
+         });
+     })
+  </script>
+
+  <% end %>

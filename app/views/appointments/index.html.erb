@@ -1,0 +1,55 @@
+<% if user_signed_in? %>
+
+<div class="container text-white">
+
+  <div class="w-100 d-flex mt-5 mb-0">
+
+      <h2 class="mr-auto">Your Appointments-</h2>
+
+      <div>
+
+      <%= link_to 'New Appointment', new_appointment_path, :class=>'btn btn-success' %>
+
+      <%= link_to 'Home', root_path, :class=>'btn btn-success' %>
+
+      </div>
+
+  </div>
+
+  <hr class="w-100 bg-light mt-0">
+
+
+    <% @user.appointments.each do |appointment| %>
+
+        <div class="bg-white text-dark rounded m-5 p-3">
+
+          <h3 class="text-center"><ins>Zyba Salons</ins></h3>
+
+          <p>To: <strong><%= @user.first_name %> <%= @user.last_name %> </strong></p><br>
+          <p>On behalf of <strong>Zyba Salons</strong>, We here by inform you that you have an appointment with us on the date and time
+              given below, In the best interest of you, please don't forget to come at time to get your services done quickly.
+              We hope you'd enjoy them.</p>
+
+          <p>Date:- <%= appointment.dateOfservice %></p>
+          <p>Time:- <%= appointment.timeOfservice %></p>
+          <p>Total bill- <strong><%= appointment.totalbill %></strong></p>
+
+          <%= link_to 'Delete', appointment, method: :delete, :class=>'btn btn-danger text-white'%>
+
+        </div>
+
+    <% end %>
+
+</div>
+
+<% else %>
+
+<div class="container">
+
+  <%= link_to 'Sign up', new_user_registration_path, :class=>'btn btn-success text-white' %>
+
+  <%= link_to 'Sign in', new_user_session_path, :class=>'btn btn-primary text-white' %>
+
+</div>
+
+<% end %>

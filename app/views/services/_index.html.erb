@@ -1,0 +1,14 @@
+<div class="container text-dark">
+
+  <h3 class="text-white">Services we offer-</h3>
+  <% @services.each do |service| %>
+
+  <div class="card bg-light mb-3">
+    <div class="card-body">
+        <h5><%= service.name %></h5>
+        <p> Price- <%= service.price %></p>
+    </div>
+  </div>
+  <% end %>
+
+</div>
